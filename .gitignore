@@ -1,0 +1,37 @@
+# Виртуальное окружение
+venv/
+.venv/
+*.venv
+.venv
+
+# Файлы Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Базы данных
+*.sqlite3
+
+# Конфигурации IDE
+.vscode/
+.idea/
+
+# Логи и отладочные файлы
+*.log
+*.pot
+*.pyc
+
+# Миграции, если они создаются автоматически (опционально)
+**/migrations/*.pyc
+**/migrations/__pycache__/
+
+# Статические файлы, если собираются автоматически
+staticfiles/
+media/
+
+# ОС
+.DS_Store
+Thumbs.db
+
+drf-aouth-firebase-adminsdk-fbsvc-b4c5ed1091.json
