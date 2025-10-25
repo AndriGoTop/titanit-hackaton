@@ -29,7 +29,8 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
     profession = models.CharField(max_length=120, blank=True, null=True)
     photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
-    #стаж
+    expirience = models.IntegerField(max_length=120, blank=True, null=True)
+
     def __str__(self):
         return self.user.username
     
