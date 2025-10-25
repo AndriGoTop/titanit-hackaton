@@ -48,5 +48,5 @@ urlpatterns = [
     # аккаунты пользователей
     re_path(r"^auth/", include("djoser.urls.jwt")),
 
-    path("api/match/<int:user_id>/'", MatchView.as_view(), name="match")
+    path("api/match/<int:user_id>/", MatchView.as_view(), name="match")
 ]

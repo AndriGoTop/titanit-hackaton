@@ -9,8 +9,12 @@ class CompatibilityEngine:
 
     def calculate_age(self, birthdate):
         today = date.today()
-        return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
-    
+        return (
+            today.year
+            - birthdate.year
+            - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        )
+
     def profile_to_text(self, profile):
         """
         Преобразует профиль пользователя в текст для TF-IDF.
@@ -53,10 +57,12 @@ class CompatibilityEngine:
                     "id": p.id,
                     "name": getattr(p.user, "username", ""),
                     "profession": getattr(p, "profession", ""),
-                    "gender": getattr(p, "gender", ""),\
+                    "gender": getattr(p, "gender", ""),
                     "age": getattr(p, "age", ""),
                     "skills": getattr(p, "skills", ""),
                     "score": round(float(scores[i]) * 100, 2),
                 }
             )
         return recommendations
+
+

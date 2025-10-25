@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    username = models.CharField(max_length=120, blank=True, null=True)
     #Фио
     email = models.EmailField(unique=True)
     telegram_id = models.CharField(max_length=32, blank=True, null=True, unique=True)
@@ -30,5 +31,5 @@ class UserProfile(models.Model):
     photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
     #стаж
     def __str__(self):
-        return self.username
+        return self.user.username
     

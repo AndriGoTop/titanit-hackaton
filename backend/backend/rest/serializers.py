@@ -8,14 +8,23 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ['bio', 'skills', 'inerests', 'goals', 'locations', "gender", "profession"]
         read_only_fields = ['user']
-
+        extra_kwargs = {
+            "bio": {"required": False},
+            "skills": {"required": False},
+            "interests": {"required": False},
+            "goals": {"required": False},
+            "locations": {"required": False},
+            "gender": {"required": False},
+            "profession": {"required": False},
+            "photo": {"required": False},
+        }
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = UserProfileSerializer(required=False)
+    # profile = UserProfileSerializer(required=False)
     
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'telegram_id', 'profile']
+        fields = ['id', 'username', 'email']
         read_only_fields = ['id']
     
     def update(self, instance, validated_data):
