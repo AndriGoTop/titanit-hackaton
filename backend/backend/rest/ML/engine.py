@@ -28,7 +28,8 @@ class CompatibilityEngine:
             if hasattr(profile, "bithday") and profile.bithday
             else ""
         )
-        return f"{profession} {gender} {skills_text} {age}"
+        age_word = f"age_{age}" if age else ""
+        return f"{profession} {gender} {skills_text} {age_word}".lower()
 
     def compute_similarity(self, profile_a, profile_b):
         """
