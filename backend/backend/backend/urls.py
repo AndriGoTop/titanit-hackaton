@@ -3,7 +3,7 @@ from django.urls import path, include , re_path
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from rest.views import UserViewSet, UserRegisterView, ProfileViewSet
+from rest.views import UserViewSet, UserRegisterView, ProfileViewSet, MatchView
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -18,7 +18,7 @@ router.register(r"profile", ProfileViewSet, basename="profile")
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="TaskHub API",
+        title="ITinder API",
         default_version="v1",
         description="Документация API для фронтендеров и разработчиков",
         contact=openapi.Contact(email="backend@taskhub.dev"),
@@ -47,4 +47,6 @@ urlpatterns = [
     path("api/profile/", include(router.urls), name="profile"),
     # аккаунты пользователей
     re_path(r"^auth/", include("djoser.urls.jwt")),
+
+    path("api/match/<int:user_id>/'", MatchView.as_view(), name="match")
 ]
