@@ -1,0 +1,280 @@
+/* ======= ОБЩИЕ СТИЛИ ======= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+em {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  background: url("img/feed-bg.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+h2, h3, p {
+  margin: 0;
+}
+
+h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+/* ===== ШАПКА ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+}
+
+.logo {
+  height: 40px;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header__search {
+  display: flex;
+  align-items: center;     /* всё по центру по вертикали */
+  gap: 15px;               /* отступ между полем и кнопкой */
+}
+
+/* Обёртка для поля поиска с иконкой */
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;                 /* поле занимает доступное пространство */
+}
+
+/* Иконка внутри поля */
+.search-icon {
+  position: absolute;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;    /* клики проходят сквозь иконку */
+}
+
+/* Само поле ввода */
+.search-input {
+  width: 100%;
+  padding: 10px 16px 10px 40px; /* отступ слева, чтобы не наезжать на иконку */
+  border: 1px solid rgba(146, 146, 146, 0.3);
+  border-radius: 16px;
+  background-color: rgba(54, 54, 54, 0.2);
+  color: #fff;
+  font-size: 14px;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.search-btn,
+.profile-btn {
+    background-color: black;
+  border: 0.5px solid #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  
+  transition: background-color 0.2s ease;
+}
+
+.search-btn:hover,
+.profile-btn:hover {
+  background-color: #fff;
+  color: black;
+}
+
+/* ===== НАВИГАЦИЯ ===== */
+.nav {
+  display: flex;
+  gap: 10px;
+  padding: 10px 40px;
+}
+
+.nav-btn {
+
+  color: #fff;
+  opacity: 0.5;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.nav-btn.active {
+  color: #fff;
+}
+
+.page-wrapper {
+    display: flex;
+    padding: 40px;
+    gap: 40px; /* промежуток между aside и лентой */
+    box-sizing: border-box;
+}
+
+
+
+/* ===== ОСНОВНЫЕ СЕКЦИИ ===== */
+section {
+  max-width: 1359px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #36363633;
+  border: 1px solid #9292924D;
+  border-radius: 10px;
+}
+
+/* ===== ПРОФИЛЬ ===== */
+.profile {
+  position: relative;
+  display: flex;
+  gap: 100px;
+}
+
+.settings-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.profile__main {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.profile-photo {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.profile-skills span {
+  background: #ffffff20;
+  border: 1px solid #9292924D;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.profile-quote {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.profile-wrapper {
+    margin-bottom: 150px;
+}
+
+.profile-status {
+  background: transparent;
+  border: 1px solid #9292924D;
+  padding: 4px 8px;
+  border-radius: 6px;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.status-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-connect {
+  background: #fff;
+  border: 1px solid #9292924D;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.profile-status {
+    display: flex;
+    align-items: center;
+}
+
+.profile-connect {
+  background: #83F308;
+  color: #000;
+}
+
+.exp {
+    font-size: 20px;
+}
+
+.user-experience {
+    margin-bottom: 10px;
+}
+
+.user-experience, .user-experience__txt, .user-email, .user-telegram {
+    color: #83F308;
+}
+
+.interest-txt {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.user-about {
+    margin-bottom: 15px;
+    max-width: 800px;
+}
+
+.user-interests {
+    display: flex;
+}
+
+.contact-email {
+    margin-bottom: 10px;
+}

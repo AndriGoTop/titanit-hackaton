@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+  <!-- ======= ШАПКА ======= -->
+    <header class="header">
+        <div class="header__logo">
+        <!-- SVG логотип -->
+        <img src="img/ITinder.svg" alt="Логотип" class="logo">
+        </div>
+
+        <div class="header__search">
+        <div class="search-box">
+            <img src="img/search-icon.svg" class="search-icon" width="20" height="20">
+            <!-- SVG иконка лупы -->
+            <input type="text" placeholder="Найти людей..." class="search-input">
+        </div>
+        <a href="feed.html" class="search-btn">Персональная подборка</a>
+        </div>
+
+        <button class="profile-btn">
+            <p>Профиль</p>
+        </button>
+    </header>
+
+    <!-- ======= НАВИГАЦИЯ ======= -->
+    <nav class="navigation">
+        <a href="index.html" class="nav-btn">Главная</a>
+        <span class="separator">\\</span>
+        <a href="profile.html" class="nav-btn active">Профиль</a>
+    </nav>
+
+    <!-- ======= ФОРМА ПРОФИЛЯ ======= -->
+    <form action="/save-profile" method="POST" class="profile-form">
+
+        <!-- ======= БЛОК ПРОФИЛЯ ======= -->
+        <section class="profile">
+            <button class="settings-btn">
+            <img src="img/settings.png" width="35" height="35">
+            </button>
+
+            <div class="profile__main">
+            <img src="img/profile.jpg" alt="Фото пользователя" class="profile-photo">
+
+            <div class="profile-info">
+                <h2 id="profile-name" class="profile-name">Голубенко Андрей Алексеевич</h2>
+
+                <div id="profile-skills" class="profile-skills">
+                <span>Back-end</span>
+                <span>DevOps</span>
+                <span>Linux</span>
+                <span>Коммуникативные навыки</span>
+                </div>
+
+                <p id="profile-quote" class="profile-quote">Самое сложное — сделать первый шаг к цели</p>
+                <p id="profile-status" class="profile-status">Ищу команду для проекта</p>
+            </div>
+            </div>
+        </section>
+
+        <!-- ======= СЕКЦИЯ "О СЕБЕ" ======= -->
+        <section class="about">
+            <h3>О себе</h3>
+
+            <label>Город</label>
+            <input type="text" name="city" placeholder="Ростов-на-Дону">
+
+            <label>Пол</label>
+            <select name="sex" class="sex">
+                <option>Мужчина</option>
+                <option>Женщина</option>
+            </select>
+
+            <label>Дата рождения</label>
+            <input class="birthdate" name="birthdate" type="date">
+        </section>
+
+        <!-- ======= СЕКЦИЯ "КОНТАКТЫ" ======= -->
+        <section class="contacts">
+            <h3>Контакты</h3>
+
+            <label>Почта</label>
+            <input name="email" type="email" placeholder="example@mail.ru">
+
+            <label>Имя в Telegram</label>
+            <input name="telegram" type="text" placeholder="@username">
+        </section>
+
+        <!-- ======= СЕКЦИЯ "ПРОФЕССИОНАЛЬНАЯ ИНФОРМАЦИЯ" ======= -->
+        <section class="professional">
+            <h3>Профессиональная информация</h3>
+
+            <label>Профессия</label>
+            <input name="profession" type="text" placeholder="Введите профессию">
+
+            <label>Стаж</label>
+            <div class="experience-row">
+            <input name="experience" type="number" min="0" placeholder="0">
+            <span>лет</span>
+            </div>
+
+            <label>Интересы</label>
+            <input name="interests" type="text" placeholder="Введите интересы">
+
+            <label>О себе</label>
+            <textarea name="about" placeholder="Расскажите о себе"></textarea>
+        </section>
+
+        <!-- ======= КНОПКИ ВНИЗУ ======= -->
+        <div class="actions">
+            <button type="submit" class="save-btn">Сохранить</button>
+            <button type="button" class="logout-btn">Выйти</button>
+        </div>
+
+    </form>
+
+        <footer class="footer">
+            <div class="footer__wrapper">
+                    <div class="footer-legend">
+                        <p class="legend-text">Мы помогаем людям находить друг<br>друга и строить смыслы вместе.</p>
+                    </div>
+                    <div class="footer__list">
+                        <li><a href="#!">Миссия</a></li>
+                        <li><a href="#!">Как работает платформа</a></li>
+                        <li><a href="#!">Персональная подборка</a></li>
+                    </div>
+
+                    <p class="footer-company">© Fool Stack 2025</p>
+            </div>
+        </footer>
+    <script src="profile.js"></script>
+</body>
+</html>

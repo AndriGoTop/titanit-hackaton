@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лента пользователей — ITinder</title>
+  <link rel="stylesheet" href="feed.css">
+</head>
+<body>
+    
+  <!-- ======= ШАПКА ======= -->
+    <header class="header">
+        <div class="header__logo">
+        <!-- SVG логотип -->
+        <img src="img/ITinder.svg" alt="Логотип" class="logo">
+        </div>
+
+        <div class="header__search">
+        <div class="search-box">
+            <img src="img/search-icon.svg" class="search-icon" width="20" height="20">
+            <!-- SVG иконка лупы -->
+            <input type="text" placeholder="Найти людей..." class="search-input">
+        </div>
+        <a href="feed.html" class="search-btn">Персональная подборка</a>
+        </div>
+
+        <button class="profile-btn">
+            <p>Профиль</p>
+        </button>
+    </header>
+
+    <!-- ======= НАВИГАЦИЯ ======= -->
+    <nav class="navigation">
+        <a href="index.html" class="nav-btn">Главная</a>
+        <span class="separator">\\</span>
+        <a href="feed.html" class="nav-btn active">Персональная подборка</a>
+    </nav>
+
+  <!-- ======= ОСНОВНОЙ КОНТЕЙНЕР ======= -->
+  <div class="page-wrapper">
+
+    <!-- ======= ЛЕВАЯ КОЛОНКА (ASIDE) ======= -->
+    <aside class="sidebar">
+
+      <!-- БЛОК ПРОФИЛЯ -->
+      <div class="profile-card">
+        <div class="profile-top">
+          <img id="user-photo" src="img/profile.jpg" alt="Фото профиля" class="profile-photo">
+
+          <div class="profile-profession">
+            <span id="user-profession">Back-end Developer</span>
+          </div>
+        </div>
+
+        <h2 id="user-name" class="profile-name">Голубенко Андрей Алексеевич</h2>
+        <p id="user-city" class="profile-city">Ростов-на-Дону</p>
+
+        <p id="user-status" class="profile-status">Ищу команду для проекта</p>
+      </div>
+
+      <div class="stat-card">
+        <p>Средний возраст пользователей ITinder <span id="avg-age" class="highlight">25</span> лет</p>
+      </div>
+
+      <div class="stat-card">
+        <p>Больше всего пользователей ITinder в <span id="top-city" class="highlight">Ростове-на-Дону</span></p>
+      </div>
+
+      <div class="stat-card">
+        <p>Самая популярная профессия в ITinder — <span id="top-profession" class="highlight">Front-end</span></p>
+      </div>
+
+    </aside>
+
+    <!-- ======= ПРАВАЯ КОЛОНКА (ЛЕНТА) ======= -->
+    <main class="feed">
+
+      <div class="cards-container" id="cards-container">
+
+        <a href="user.html">
+            <div class="user-card" style="background-image: url('img/person1.jpg')">
+                <div class="card-overlay">
+                    <span class="card-profession">UX Designer</span>
+                </div>
+                <div class="card-info">
+                    <p class="card-name">Мария Иванова, 24</p>
+                    <p class="card-city">Москва</p>
+                    <p class="card-skills">Figma, UI/UX, Adobe XD</p>
+                </div>
+            </div>
+        </a>
+        <a href="user.html">
+            <div class="user-card" style="background-image: url('img/person2.jpg')">
+                <div class="card-overlay">
+                    <span class="card-profession">UX Designer</span>
+                </div>
+                <div class="card-info">
+                    <p class="card-name">Мария Иванова, 24</p>
+                    <p class="card-city">Москва</p>
+                    <p class="card-skills">Figma, UI/UX, Adobe XD</p>
+                </div>
+            </div>
+        </a>
+        <a href="user.html">
+            <div class="user-card" style="background-image: url('img/person3.jpg')">
+                <div class="card-overlay">
+                    <span class="card-profession">UX Designer</span>
+                </div>
+                <div class="card-info">
+                    <p class="card-name">Мария Иванова, 24</p>
+                    <p class="card-city">Москва</p>
+                    <p class="card-skills">Figma, UI/UX, Adobe XD</p>
+                </div>
+            </div>
+        </a>
+      </div>
+
+      <div class="cards-container" id="cards-container">
+
+        <a href="user.html">
+            <div class="user-card" style="background-image: url('img/person1.jpg')">
+                <div class="card-overlay">
+                    <span class="card-profession">UX Designer</span>
+                </div>
+                <div class="card-info">
+                    <p class="card-name">Мария Иванова, 24</p>
+                    <p class="card-city">Москва</p>
+                    <p class="card-skills">Figma, UI/UX, Adobe XD</p>
+                </div>
+            </div>
+        </a>
+        <a href="user.html">
+            <div class="user-card" style="background-image: url('img/person2.jpg')">
+                <div class="card-overlay">
+                    <span class="card-profession">UX Designer</span>
+                </div>
+                <div class="card-info">
+                    <p class="card-name">Мария Иванова, 24</p>
+                    <p class="card-city">Москва</p>
+                    <p class="card-skills">Figma, UI/UX, Adobe XD</p>
+                </div>
+            </div>
+        </a>
+        <a href="user.html">
+            <div class="user-card" style="background-image: url('img/person3.jpg')">
+                <div class="card-overlay">
+                    <span class="card-profession">UX Designer</span>
+                </div>
+                <div class="card-info">
+                    <p class="card-name">Мария Иванова, 24</p>
+                    <p class="card-city">Москва</p>
+                    <p class="card-skills">Figma, UI/UX, Adobe XD</p>
+                </div>
+            </div>
+        </a>
+      </div>
+
+      <div class="show-more">
+        <button id="load-more-btn">Показать ещё</button>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="feed.js"></script>
+</body>
+</html>

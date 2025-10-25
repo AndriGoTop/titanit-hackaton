@@ -1,11 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ITinder</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+
+
 </head>
 <body>
+    <div class="header">
+        <img src="img/ITinder.svg" alt="logo">
+
+        <div class="header__nav">
+            <div class="header__list">
+                <li href="#!">Миссия</li>
+                <li href="#!">Как работает платформа</li>
+                <li href="#!">Персональная подборка</li>
+            </div>
+        </div>
+        <div class="header__auth">
+            <a href="#!" class="btn-singin">Зарегистрироваться</a>
+            <a href="#!" class="link-login">Войти</a>
+        </div>
+    </div>
+    <main class="main">
+        <div class="hero">
+            <h1 class="main__txt">Находим <em>нужных</em> людей для жизни, работы и <em>смысла</em></h1>
+
+            <div class="main__wrapper">
+                <button class="main__btn">
+                    <span class="main__button-text">Начать</span>
+                    <img src="img/search-btn.png" alt="icon" class="main__button-icon">
+                    <span class="main__button-text">поиск</span>
+                </button>
+
+                <div class="main__desc">
+                    <div class="main__desc-first">Социальная сеть для</div>
+                    <div class="main__desc-second">друзей и нетворкинга</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="motivation">
+            <div class="motivation__container">
+                <span class="motivation-label motivation-label--top">Работа</span>
+                <span class="motivation-label motivation-label--left">Друзья</span>
+                <span class="motivation-label motivation-label--right">Мероприятия</span>
+
+                <div class="motivation-content">
+                    <p class="motivation-contetn__paragraph">
+                        Мы создаём <em>пространство</em>, где люди находят<br> друг друга по смыслу, а не по случайности.<br> 
+Наша цель — помочь каждому обрести <em>своих</em> людей для роста, творчества, карьеры<br>
+и дружбы, используя силу искусственного интеллекта и человеческих ценностей.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about">
+            <div class="about__container">
+                <span class="angeled-label">Фишечка проекта</span>
+
+                <h2 class="about-title">Как работает платформа</h2>
+
+                <div class="about__grid">
+                    <div class="about-card">
+                        <div class="about-card__number">01</div>
+                        <h3 class="about-card__title">Укажите цели и интересы</h3>
+                        <p class="about-card__description">Я программист, есть корги, люблю пирожки
+с кремом и фильмы с Райаном Гослингом.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-card__number">02</div>
+                        <h3 class="about-card__title">Алгоритм находит совпадения</h3>
+                        <p class="about-card__description">Похожие интересы, мероприятия, желаемые ресурсы, события, друзей, пару и все-все-все.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-card__number">03</div>
+                        <h3 class="about-card__title">Готов начать с <em>ITinder</em> ?</h3>
+
+                        <div class="description-wrapper">
+                            <p class="about-card__description">Найти друга, работу или комьюнити быстрее, чем время ожидания утренней чашки кофе.</p>
+                            <div class="about-card__icon">
+                                <img src="img/about-card-icon.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="selection">
+            <div class="selection__container">
+                <div class="selection__header">
+                    <h2 class="selection__title"><em>Персональная</em> подборка людей</h2>
+                    <img src="img/selection-icon.svg" class="selection__img">
+                </div>
+
+                <div class="selection__grid">
+                    <div class="selection-card-left"></div>
+                    <div class="selection-card-mid"></div>
+                    <div class="selection-card-txt">
+                        <p>\\</p>
+                        <p>Друзья, комьюнити,<br>события, работа</p>
+                    </div>
+                    <div class="selection-card-right"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
     
+    <div class="auth-footer-wrapper">
+        <div class="auth">
+            <div class="auth__container">
+                <div class="auth__text">
+                    <h2 class="auth-label">Получить подборку</h2>
+                    <h3 class="auth-legend">Сообщество<br>начинается с тебя</h3>
+                    <div class="auth-desc">Самое сложное - сделать первый шаг к цели.</div>
+                </div>
+
+                <div class="auth__content">
+                    <div class="form-wrapper">
+                        <form action="/register" method="POST">
+                            <label for="fio" class="form-label">ФИО</label>
+                            <input type="text" id="fio" name="fio" class="auth__input" placeholder="Андрей Голубенко" required>
+                            
+                            <label for="nickname" class="form-label">Ник для сети</label>
+                            <input type="text" id="nickname" name="nickname" class="auth__input" placeholder="RazrabAndrey3000" required>
+                            
+                            <label for="email" class="form-label">Почтовый адрес</label>
+                            <input type="email" id="email" name="email" class="auth__input" placeholder="RazrabAndrey@yandex.ru" required>
+                            
+                            <label for="password" class="form-label">Пароль</label>
+                            <input type="password" id="password" name="password" class="auth__input"   placeholder="*****************" required>
+                            
+                            <label for="password_repeat" class="form-label">Повторный ввод пароля</label>
+                            <input type="password" id="password_repeat" name="password_repeat" class="auth__input"  placeholder="*****************" required>
+                            
+                            <div class="auth__checkbox">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember">Запомнить меня</label>
+                            </div>
+
+                            <div class="auth__actions">
+                                <button type="submit" class="auth__button auth__button--primary">Зарегистрироваться</button>
+                                <span class="auth__separator">\\</span>
+                                <button type="button" class="auth__button auth__button--singin">Войти</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="footer__wrapper">
+                <div class="footer-left">
+                    <div class="footer-legend">
+                        <p class="legend-text">Мы помогаем людям находить друг<br>друга и строить смыслы вместе.</p>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <div class="footer__list">
+                        <li><a href="#!">Миссия</a></li>
+                        <li><a href="#!">Как работает платформа</a></li>
+                        <li><a href="#!">Персональная подборка</a></li>
+                    </div>
+
+                    <p class="footer-company">© Fool Stack 2025</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>

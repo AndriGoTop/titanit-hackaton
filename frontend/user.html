@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль пользователя — ITinder</title>
+  <link rel="stylesheet" href="user.css">
+</head>
+<body>
+
+<!-- ======= ШАПКА ======= -->
+    <header class="header">
+        <div class="header__logo">
+        <!-- SVG логотип -->
+        <img src="img/ITinder.svg" alt="Логотип" class="logo">
+        </div>
+
+        <div class="header__search">
+        <div class="search-box">
+            <img src="img/search-icon.svg" class="search-icon" width="20" height="20">
+            <!-- SVG иконка лупы -->
+            <input type="text" placeholder="Найти людей..." class="search-input">
+        </div>
+        <a href="feed.html" class="search-btn">Персональная подборка</a>
+        </div>
+
+        <button class="profile-btn">
+            <p>Профиль</p>
+        </button>
+    </header>
+
+    <!-- ======= НАВИГАЦИЯ ======= -->
+    <nav class="navigation">
+        <a href="index.html" class="nav-btn">Главная</a>
+        <span class="separator">\\</span>
+        <a href="feed.html" class="nav-btn">Персональная подборка</a>
+        <span class="separator">\\</span>
+        <a href="user.html" class="nav-btn active">Виленская Анна</a>
+    </nav>
+
+<!-- ======= БЛОК ПРОФИЛЯ ======= -->
+    <section class="profile">
+        <div class="profile__main">
+        <img src="img/person2.jpg" alt="Фото пользователя" class="profile-photo">
+
+        <div class="profile-info">
+            <h2 id="profile-name" class="profile-name">Виленская Анна Валерьевна</h2>
+
+            <div id="profile-skills" class="profile-skills">
+                <span>Back-end</span>
+                <span>DevOps</span>
+                <span>Linux</span>
+                <span>Коммуникативные навыки</span>
+            </div>
+
+            <p id="profile-quote" class="profile-quote">Самое сложное — сделать первый шаг к цели</p>
+            <div class="profile-wrapper">
+                <span class="city">Ростов-на-Дону</span>
+                <span>\\</span>
+                <span id="sex" class="sex">Женщина</span>
+                <span id="age" class="age">23</span>
+                <span>года/лет</span>
+            </div>
+            <div class="status-wrapper">
+                <p id="profile-status" class="profile-status">Хочу в проект</p>
+                <button id="profile-connect" class="profile-connect">Связаться</button>
+            </div>
+        </div>
+        </div>
+    </section>
+        
+
+    <section class="profile">
+        <div class="profile-left">
+            <h2>О себе</h2>
+
+            <div class="user-experience">
+            <span class="exp">Стаж</span>
+            <span id="user-experience" class="user-experience">3</span>
+            <span class="user-experience__txt">года/лет</span>
+            </div>
+
+            <div class="user-about">
+                <p id="user-about">
+                    Привет! Меня зовут Анна, я фронтенд-разработчик с горящими глазами и страстью к созданию крутых и отзывчивых интерфейсов.
+        Мой стек: React, TypeScript, Next.js, Redux Toolkit, Vite. 
+
+        Уверенно владею современным JavaScript (ES6+), HTML5, CSS3 (SCSS, Tailwind). Сборщики, Git — это моя повседневность.
+
+        Ищу интересный проект с сильной командой, где смогу применить свои навыки, расти и делать продукты, которыми буду гордиться. Быстро учусь, ответственно подхожу к задачам и верю, что код — это не просто функционал, но и пользовательский опыт.
+        Готова обсудить, как мои умения могут быть полезны вашей команде!
+                </p>
+            </div>
+
+            <div class="user-interests">
+                <span class="interest-txt">Интересы</span>
+                <div class="profile-skills" id="user-interests">
+                    <span class="interest">Frontend</span>
+                    <span class="interest">Python</span>
+                    <span class="interest">Искусственный интеллект</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-right">
+            <h2>Контакты</h2>
+
+            <div class="contact-email">
+                <span>Почтовый адрес</span>
+                <span id="user-email" class="user-email">example@mail.ru</span>
+            </div>
+
+            <div class="contact-telegram">
+                <span>Имя в Telegram</span>
+                <span id="user-telegram" class="user-telegram">@username</span>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
