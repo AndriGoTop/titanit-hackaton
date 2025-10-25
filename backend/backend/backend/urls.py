@@ -47,6 +47,6 @@ urlpatterns = [
     path("api/profile/", include(router.urls), name="profile"),
     # аккаунты пользователей
     re_path(r"^auth/", include("djoser.urls.jwt")),
-
+    # Рекомендательная система для определенного пользователя
     path("api/match/<int:user_id>/", MatchView.as_view(), name="match")
 ]

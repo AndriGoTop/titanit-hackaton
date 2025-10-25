@@ -6,7 +6,7 @@ from .models import User, UserProfile
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['bio', 'skills', 'inerests', 'goals', 'locations', "gender", "profession"]
+        fields = ['bio', 'skills', 'inerests', 'goals', 'locations', "gender", "profession","bithday"]
         read_only_fields = ['user']
         extra_kwargs = {
             "bio": {"required": False},
@@ -17,6 +17,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "gender": {"required": False},
             "profession": {"required": False},
             "photo": {"required": False},
+            "bithday": {"required": False},
         }
 
 class UserSerializer(serializers.ModelSerializer):
