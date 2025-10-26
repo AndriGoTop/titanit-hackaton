@@ -13,6 +13,8 @@ __pycache__/
 # Базы данных
 *.sqlite3
 
+test_elastic_search.py
+
 # Конфигурации IDE
 .vscode/
 .idea/
@@ -29,7 +31,7 @@ __pycache__/
 # Статические файлы, если собираются автоматически
 staticfiles/
 media/
-
+test.py
 # ОС
 .DS_Store
 Thumbs.db

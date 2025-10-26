@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ITinder</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="auth.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 
@@ -84,8 +84,7 @@
                         <div class="about-card__number">03</div>
                         <h3 class="about-card__title">Готов начать с <em>ITinder</em> ?</h3>
 
-Marowstie, [26.10.2025 4:50]
-<div class="description-wrapper">
+                        <div class="description-wrapper">
                             <p class="about-card__description">Найти друга, работу или комьюнити быстрее, чем время ожидания утренней чашки кофе.</p>
                             <div class="about-card__icon">
                                 <img src="img/about-card-icon.svg">
@@ -121,38 +120,23 @@ Marowstie, [26.10.2025 4:50]
         <div class="auth">
             <div class="auth__container">
                 <div class="auth__text">
-                    <h2 class="auth-label">Получить подборку</h2>
-                    <h3 class="auth-legend">Сообщество<br>начинается с тебя</h3>
-                    <div class="auth-desc">Самое сложное - сделать первый шаг к цели.</div>
+                    <h2 class="auth-label">С возвращением!</h2>
+                    <div class="auth-desc">Мы ждали и подготовили самое лучшее</div>
                 </div>
 
                 <div class="auth__content">
                     <div class="form-wrapper">
-                        <form id="registerForm">
-                            <label for="fio" class="form-label">ФИО</label>
-                            <input type="text" id="fio" name="fio" class="auth__input" placeholder="Андрей Голубенко" required>
-                            
-                            <label for="nickname" class="form-label">Ник для сети</label>
-                            <input type="text" id="nickname" name="nickname" class="auth__input" placeholder="RazrabAndrey3000" required>
-                            
+                        <form id="loginForm">
                             <label for="email" class="form-label">Почтовый адрес</label>
                             <input type="email" id="email" name="email" class="auth__input" placeholder="RazrabAndrey@yandex.ru" required>
                             
                             <label for="password" class="form-label">Пароль</label>
                             <input type="password" id="password" name="password" class="auth__input"   placeholder="*****************" required>
-                            
-                            <label for="password_repeat" class="form-label">Повторный ввод пароля</label>
-                            <input type="password" id="password_repeat" name="password_repeat" class="auth__input"  placeholder="*****************" required>
-                            
-                            <div class="auth__checkbox">
-                                <input type="checkbox" id="remember" name="remember">
-                                <label for="remember">Запомнить меня</label>
-                            </div>
 
                             <div class="auth__actions">
-                                <button type="submit" class="auth__button auth__button--primary">Зарегистрироваться</button>
+                                <button type="submit" class="auth__button auth__button--primary">Войти</button>
                                 <span class="auth__separator">\\</span>
-                                <a href="auth.html" class="auth__button auth__button--singin">Войти</a>
+                                <a href="index.html" class="auth__button auth__button--singin">Зарегистрироваться</a>
                             </div>
                         </form>
                     </div>
@@ -160,7 +144,8 @@ Marowstie, [26.10.2025 4:50]
             </div>
         </div>
 
-<footer class="footer">
+
+        <footer class="footer">
             <div class="footer__wrapper">
                 <div class="footer-left">
                     <div class="footer-legend">
@@ -180,6 +165,6 @@ Marowstie, [26.10.2025 4:50]
             </div>
         </footer>
     </div>
-    <script src="register.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>

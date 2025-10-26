@@ -1,0 +1,522 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+em {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    /* Сумма высот всех 4 блоков */
+    height: 2203px; /* пример */
+    
+    background-image: url('img/welcome-bg.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between; /* логотип слева, навигация по центру, кнопки справа */
+  align-items: flex-end;
+  padding: 19px 40px;
+  margin-bottom: 166px;
+}
+
+.header img {
+  height: 48px;
+}
+
+.header__nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.header__list {
+  list-style: none; /* убираем точки */
+  display: flex;
+  gap: 40px; /* расстояние между пунктами меню */
+  font-size: 12px;
+}
+
+.header__list li {
+  font-size: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.header__list li:hover {
+  opacity: 0.5; /* эффект при наведении */
+}
+
+.header__auth {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-singin {
+  background-color: black;
+  border: 0.5px solid #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btn-singin:hover {
+  background-color: #fff;
+  color: black;
+  /*border: 0.5px solid black;*/
+}
+
+.hero {
+  display: flex;
+  flex-direction: column; /* чтобы заголовок, кнопка и описание шли сверху вниз */
+  align-items: center;    /* центрируем всё по горизонтали */
+  text-align: center;     /* для текста внутри элементов */
+  gap: 30px;              /* расстояние между h1, кнопкой и описанием */
+  padding: 0px 20px;
+  margin-bottom: 434px;
+}
+.main__txt {
+  width: calc(1146 / 1440 * 100%);
+  font-weight: 500;
+  font-size: 80px;
+    font-style: Medium;
+    text-align: center;
+
+}
+
+.main__wrapper {
+  display: flex;            /* горизонтальное выравнивание */
+  align-items: center;      /* центрируем по вертикали относительно друг друга */
+  gap: 20px;                /* расстояние между кнопкой и описанием */
+  justify-content: center;  /* центрируем всю группу под h1 */
+}
+
+.main__btn {
+  display: flex;           /* выстраиваем текст и иконку в линию */
+  align-items: center;     /* вертикально центрируем внутри кнопки */
+  gap: 8px;               /* расстояние между элементами */
+  height: 61px;
+  padding: 8px 16px;      /* внутренние отступы */
+  background-color: black;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.main__desc {
+  display: flex;
+  flex-direction: column;   /* два текста один под другим */
+  align-items: center;      /* центрируем по горизонтали */
+  gap: 3px;                 /* расстояние между строками */
+  font-size: 16px;
+}
+
+.main__desc-second {
+    opacity: 0.5;
+}
+.motivation {
+    padding-left: 160px;
+    margin-right: 113px;
+    margin-bottom: 224px;
+}
+.motivation__container {
+  position: relative;  /* для абсолютного позиционирования меток внутри */
+  max-width: 1166;    /* или ширина текста, как в макете */
+  width: 100%;       /* чтобы контейнер сжимался на узких экранах */
+  max-height: 422;
+  margin: 0 auto;    /* центрируем горизонтально */
+  box-sizing: border-box; /* паддинги не увеличивают ширину */
+}
+.motivation-label {
+  position: absolute;      /* будут позиционироваться относительно контейнера */
+  padding: 8px 16px;       /* внутренний отступ */
+  border-radius: 16px;     /* скругление */
+  height: 44px;
+  background: linear-gradient(90deg, #A9DE6F, #818181); /* пример градиента */
+  color: #fff;
+  white-space: nowrap;     /* чтобы текст не переносился */
+    color: black;
+    font-size: 20px;
+}
+.motivation-label--top {
+  right: 85px;
+  top: -26px;
+}
+.motivation-label--left {
+  right: calc(100% + 26px);   /* левее левого края текста на 26px */
+  top: 160px;    /* от верха контейнера */
+}
+.motivation-label--right {
+  right: 111px;
+  top: 235px;
+}
+.motivation-content {
+  text-align: left;
+}
+.motivation-contetn__paragraph {
+  margin: 0;
+  width: 100%;         /* занимает ширину контейнера, не больше */
+  box-sizing: border-box;
+    font-size: 50px;
+    line-height: 142%;
+  color: black;
+}
+.about {
+    margin-right: 40px;
+    margin-bottom: 50px;
+}
+.about__container {
+  position: relative;          /* для абсолютного позиционирования наклонного элемента */
+  max-width: 1440px;           /* ширина макета */
+  margin: 0 auto;              /* центрирование */
+  box-sizing: border-box;
+}
+.angeled-label {
+  position: absolute;
+  top: 0;                     /* прилипает к верху контейнера */
+  left: 909px;                /* совпадает с левым отступом заголовка */
+  padding: 8px 16px;         /* внутренние отступы */
+  background: linear-gradient(90deg, #A9DE6F, #818181);  /* цвет фона */
+  color: black;
+  font-size: 20px;
+  transform: rotate(20deg);   /* наклон вправо, угол примерный */
+  border-radius: 16px;
+  z-index: 1;  
+}
+.about-title {
+    padding-top: 20px;
+    padding-left: calc(285 / 1440 * 100%);
+  margin-right: calc(423 / 1440 * 100%);
+  font-size: 60px;   
+}
+.about__grid {
+  display: flex;             /* горизонтальное расположение карточек */
+  gap: 20px;                 /* расстояние между карточками */
+  justify-content: center;   /* центрируем всю группу */
+  margin-top: 40px;          /* отступ сверху от заголовка */
+}
+.about-card {
+  position: relative;             /* для номера и иконки */
+  width: 440px;
+  height: 403px;
+  border: bold 1px;
+  background: #36363633;  /* прозрачный фон */
+  padding-left: 40px;                  /* внутренний отступ для текста слева */
+  padding-top: 106px;
+  box-sizing: border-box;
+}
+.about-card__number {
+  position: absolute;
+  top: 26px;       /* отступ от верхнего края карточки */
+  right: 32px;     /* отступ от правого края */
+  font-size: 30px;
+  color: #F7F7F780;
+  opacity: 0.2;
+}
+.about-card__title {
+  margin: 0;
+  font-size: 40px;
+}
+
+.about-card__title em {
+    font-style: italic;
+}
+
+.about-card__description {
+    position: relative;
+    z-index: 2;
+  margin-top: 10px;
+  margin-right: 53px;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.about-card__icon {
+  position: absolute;
+  top: 141px;       /* от верхнего края карточки */
+  right: 144px;      /* от правого края */
+  width: 50px;      /* пример размеров, подставь свои */
+  height: 50px;
+}
+.selection{
+    background-color: #fff;
+    height: 754px;
+    padding-top: 98px;
+    margin-bottom: 80px;
+}
+.selection__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px; /* отступы слева и справа */
+  box-sizing: border-box;
+}
+.selection__header {
+  display: flex;
+  justify-content: space-between; /* заголовок и иконка растягиваются */
+  align-items: center;           /* выравнивание по вертикали */
+  margin-bottom: 57px;
+}
+.selection__title {
+    color: #000;
+  font-size: 60px; /* пример */
+  margin: 0;
+}
+
+.selection__title em {
+  font-style: italic; /* если нужно выделение */
+}
+
+.selection__grid {
+  display: flex;
+  gap: 20px;        /* промежуток между карточками */
+  justify-content: center; /* центрируем сетку */
+}
+
+.selection-card-left,
+.selection-card-mid,
+.selection-card-txt,
+.selection-card-right {
+  width: 325px;        /* подставь нужный размер */
+  height: 443px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+}
+
+.selection-card-left {
+    background-image: url('/img/person1.jpg');
+}
+.selection-card-mid {
+    background-image: url('/img/person2.jpg');
+}
+.selection-card-txt {
+  background-color: #000; /* черный блок */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+line-height: 142%;
+  font-size: 20px;
+  text-align: center;
+}
+.selection-card-right {
+    background-image: url('/img/person3.jpg');
+}
+
+.auth-footer-wrapper {
+  background-image: url('img/registration-bg.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth{
+    margin-bottom: 80px;
+    height: 454px;
+}
+.auth__container {
+  display: flex;
+  justify-content: space-between; /* левая и правая часть растянуты */
+  max-width: calc(1440px - 82px); /* 1440 минус 2 * 41px */
+  margin: 0 auto;                  /* центрируем контейнер */
+  /*gap: 40px;*/                        /* промежуток между левым и правым блоком */
+  box-sizing: border-box;
+}
+
+.auth__text,
+.auth__content {
+  flex: 1;             /* занимают равную ширину */
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-label {
+  font-size: 60px;
+  margin-top: 40px;            /* отступ сверху */
+  margin-bottom: 347px;
+}
+.auth-legend {
+  font-size: 40px;
+  margin: 0 0 10px 0;
+}
+.auth-desc {
+  font-size: 14px;
+  margin: 0;
+}
+.auth__content {
+    padding-top: 73px;
+}
+.form-wrapper {
+  width: 100%;  
+}
+
+.form-label{
+    display: block; 
+    margin-bottom: 10px;
+}
+
+.auth__input {
+  width: 100%;
+  height: 60px;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+  border-radius: 16px;
+    border: 1px solid rgba(146, 146, 146, 0.3); /* граница с 30% прозрачности */
+    background-color: rgba(54, 54, 54, 0.2); 
+  color: #fff;
+}
+
+.auth__input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* полупрозрачный текст плейсхолдера */
+}
+
+.auth__checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;              /* отступ между чекбоксом и текстом */
+    margin-bottom: 38px;    /* отступ после чекбокса до кнопки */
+}
+
+.auth__checkbox input[type="checkbox"] {
+    width: 20px; 
+    height: 20px; 
+    border-radius: 8px;                       /* такой же скруглённый угол, как у полей */
+    border: 1px solid rgba(146, 146, 146, 0.3); /* граница с 30% прозрачности */
+    background-color: rgba(54, 54, 54, 0.2);    /* основной цвет с 20% прозрачности */
+    appearance: none;                           /* убираем стандартный стиль чекбокса */
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+/* галочка при выборе */
+.auth__checkbox input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    width: 4px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.auth__actions {
+    display: flex;
+    align-items: center;   /* все по центру по вертикали */
+    gap: 8px;              /* расстояние между элементами */
+    margin-top: 20px;      /* отступ от формы сверху */
+    justify-content: flex-start; /* прижать к левому краю контейнера */
+}
+
+.auth__button--primary {
+    background-color: #fff; 
+    color: #000;
+    border: solid 1px #fff;
+    border-radius: 10px;
+    height: 37px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+
+.auth__button--primary:hover {
+  background-color: #000;
+  border: solid 1px #fff;
+  color: #fff;
+}
+
+.auth__button--singin {
+    background: transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.2s ease;
+}
+
+.auth__button--singin:hover {
+  opacity: 0.5;
+}
+
+.footer {
+    padding: 20px 0;
+}
+.footer__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;   /* текст слева прижат к верху */
+    max-width: 1440px; /* общий контейнер минус 2*40px */
+    margin: 0 auto;            /* центрируем по странице */
+    padding: 0 40px;           /* одинаковые отступы слева и справа */
+    box-sizing: border-box;
+}
+.footer-left {
+    flex: 1;
+}
+.footer-legend {
+    margin: 0;
+    line-height: 1.5;
+}
+.legend-text {
+    color: #000;
+}
+.footer-right {
+    flex: 1;
+    display: flex;
+    justify-content: space-between; /* меню слева, копирайт справа */
+    align-items: center;            /* вертикально по центру */
+}
+.footer__list {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-right .footer-list li a {
+    cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.footer-right .footer-list li a:hover {
+  opacity: 0.5; /* эффект при наведении */
+}
+
+
+.footer-company {
+    margin: 0;
+    color: #000;
+}

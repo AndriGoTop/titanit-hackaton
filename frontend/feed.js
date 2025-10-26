@@ -1,97 +1,176 @@
-const profileData = {
-  name: "Голубенко Андрей Алексеевич",
-  profession: "Back-end Developer",
-  city: "Ростов-на-Дону",
-  status: "Ищу команду для проекта",
-  photo: "img/profile.jpg"
-};
+document.addEventListener('DOMContentLoaded', async () => {
+  const cardsContainer = document.getElementById('cards-container');
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  const searchInput = document.querySelector('.search-input');
 
-document.getElementById('user-name').textContent = profileData.name;
-document.getElementById('user-profession').textContent = profileData.profession;
-document.getElementById('user-city').textContent = profileData.city;
-document.getElementById('user-status').textContent = profileData.status;
-document.getElementById('user-photo').src = profileData.photo;
+  let currentPage = 1;
+  let currentSearch = '';
+  let currentUserId = null;
 
-// Заглушка с данными с сервера
-const usersData = [
-  { name: "Мария Иванова", age: 24, city: "Москва", skills: "Figma, UI/UX, Adobe XD", profession: "UX Designer", photo: "img/person1.jpg" },
-  { name: "Иван Петров", age: 28, city: "Санкт-Петербург", skills: "React, JS, CSS", profession: "Front-end", photo: "img/person2.jpg" },
-  { name: "Ольга Смирнова", age: 26, city: "Москва", skills: "Python, Django, SQL", profession: "Back-end", photo: "img/person3.jpg" }
-];
-
-const cardsContainer = document.getElementById('cards-container');
-cardsContainer.innerHTML = ""; // очищаем контейнер
-
-usersData.forEach(user => {
-  const card = document.createElement('a');
-  card.href = "user.html";
-  card.innerHTML = `
-    <div class="user-card" style="background-image: url('${user.photo}')">
-      <div class="card-overlay">
-        <span class="card-profession">${user.profession}</span>
-      </div>
-      <div class="card-info">
-        <p class="card-name">${user.name}, ${user.age}</p>
-        <p class="card-city">${user.city}</p>
-        <p class="card-skills">${user.skills}</p>
-      </div>
-    </div>
-  `;
-  cardsContainer.appendChild(card);
-});
-
-
-const loadMoreBtn = document.getElementById('load-more-btn');
-loadMoreBtn.addEventListener('click', () => {
-  console.log("Нажата кнопка 'Показать ещё'");
-  // Можно добавить подгрузку новых пользователей с сервера или имитацию
-});
-
-
-const allUsers = [
-  { name: "Мария Иванова", age: 24, city: "Москва", skills: "Figma, UI/UX, Adobe XD", profession: "UX Designer", photo: "img/person1.jpg" },
-  { name: "Иван Петров", age: 28, city: "Санкт-Петербург", skills: "React, JS, CSS", profession: "Front-end", photo: "img/person2.jpg" },
-  { name: "Ольга Смирнова", age: 26, city: "Москва", skills: "Python, Django, SQL", profession: "Back-end", photo: "img/person3.jpg" },
-  { name: "Алексей Смирнов", age: 30, city: "Казань", skills: "Node.js, Express", profession: "Back-end", photo: "img/person4.jpg" },
-  { name: "Екатерина Лебедева", age: 22, city: "Москва", skills: "Figma, UI/UX", profession: "UX Designer", photo: "img/person5.jpg" }
-];
-
-const cardsContainer = document.getElementById('cards-container');
-
-let usersLoaded = 0; // сколько пользователей уже показано
-const usersPerPage = 3; // сколько показываем за раз
-
-function loadUsers() {
-  const nextUsers = allUsers.slice(usersLoaded, usersLoaded + usersPerPage);
-  
-  nextUsers.forEach(user => {
-    const card = document.createElement('a');
-    card.href = "user.html";
-    card.innerHTML = `
-      <div class="user-card" style="background-image: url('${user.photo}')">
-        <div class="card-overlay">
-          <span class="card-profession">${user.profession}</span>
-        </div>
-        <div class="card-info">
-          <p class="card-name">${user.name}, ${user.age}</p>
-          <p class="card-city">${user.city}</p>
-          <p class="card-skills">${user.skills}</p>
-        </div>
-      </div>
-    `;
-    cardsContainer.appendChild(card);
-  });
-
-  usersLoaded += nextUsers.length;
-
-  // Если все пользователи показаны, прячем кнопку
-  if (usersLoaded >= allUsers.length) {
-    document.getElementById('load-more-btn').style.display = 'none';
+  // ======= Вспомогательные функции =======
+  function showAlert(message) {
+    alert(message);
   }
-}
 
-// Начальная загрузка
-loadUsers();
+  function handleError(err) {
+    console.error(err);
+    showAlert("Произошла ошибка при работе с сервером");
+  }
 
-// Подгрузка при клике
-document.getElementById('load-more-btn').addEventListener('click', loadUsers);
+  async function getValidAccessToken() {
+    let access = localStorage.getItem('access_token');
+    const refresh = localStorage.getItem('refresh_token');
+    if (!access && !refresh) return null;
+
+    try {
+      const testRes = await fetch('http://127.0.0.1:8000/api/profile/', {
+        headers: { 'Authorization': `Bearer ${access}` }
+      });
+
+      if (testRes.status === 401 && refresh) {
+        const refreshRes = await fetch('http://127.0.0.1:8000/auth/jwt/refresh/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refresh })
+        });
+
+        if (!refreshRes.ok) return null;
+        const refreshData = await refreshRes.json();
+        access = refreshData.access;
+        localStorage.setItem('access_token', access);
+      }
+
+      return access;
+    } catch (err) {
+      handleError(err);
+      return null;
+    }
+  }
+
+  async function fetchWithToken(url, options = {}) {
+    const token = await getValidAccessToken();
+    if (!token) return null;
+    if (!options.headers) options.headers = {};
+    options.headers['Authorization'] = `Bearer ${token}`;
+    options.headers['Content-Type'] = 'application/json';
+
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error || 'Ошибка запроса');
+    }
+    return await response.json();
+  }
+
+  // ======= Получение текущего пользователя =======
+  async function loadCurrentUserProfile() {
+    try {
+      const data = await fetchWithToken('http://127.0.0.1:8000/api/profile/');
+      if (!data.results || data.results.length === 0) throw new Error("Профиль не найден");
+
+      const user = data.results[0];
+      currentUserId = user.id;
+
+      // ======= Блок профиля =======
+      const userPhoto = document.getElementById('user-photo');
+      const userName = document.getElementById('user-name');
+      const userProfession = document.getElementById('user-profession');
+      const userCity = document.getElementById('user-city');
+      const userStatus = document.getElementById('user-status');
+
+      if (userPhoto) userPhoto.src = user.photo || 'img/profile.jpg';
+      if (userName) userName.textContent = user.fio || user.user || 'Пользователь';
+      if (userProfession) userProfession.textContent = user.profession || 'Не указано';
+      if (userCity) userCity.textContent = user.locations || '-';
+      if (userStatus) userStatus.textContent = user.goals || 'Нет статуса';
+
+      return user.id;
+    } catch (err) {
+      handleError(err);
+      return null;
+    }
+  }
+
+  // ======= Загрузка summary =======
+  async function loadSummary() {
+    try {
+      const data = await fetchWithToken('http://127.0.0.1:8000/api/users/?type=summary');
+      document.getElementById('avg-age').textContent = data.avg_age || '-';
+      document.getElementById('top-profession').textContent = data.popular_professions[0] || '-';
+      document.getElementById('top-city').textContent = data.top_city || '-';
+    } catch (err) {
+      console.error('Ошибка загрузки summary:', err);
+    }
+  }
+
+  // ======= Загрузка рекомендаций =======
+  async function loadRecommendations(userId) {
+    try {
+      const data = await fetchWithToken(`http://127.0.0.1:8000/api/match/${userId}/`);
+      renderUserCards(data.recommendations);
+    } catch (err) {
+      handleError(err);
+    }
+  }
+
+  // ======= Загрузка пользователей (поиск) =======
+  async function loadUsers(reset = false) {
+    if (reset) currentPage = 1;
+    const url = new URL('http://127.0.0.1:8000/api/users/');
+    url.searchParams.append('type', 'search');
+    url.searchParams.append('search', currentSearch);
+    url.searchParams.append('page', currentPage);
+
+    try {
+      const data = await fetchWithToken(url.toString());
+      if (reset) cardsContainer.innerHTML = '';
+      renderUserCards(data.results);
+      currentPage++;
+    } catch (err) {
+      handleError(err);
+    }
+  }
+
+  // ======= Рендер карточек пользователей =======
+  function renderUserCards(users) {
+    users.forEach(user => {
+      const card = document.createElement('a');
+      card.href = `user.html?id=${user.id}`;
+      card.classList.add('user-card-link');
+      card.innerHTML = `
+        <div class="user-card" style="background-image: url('${user.photo || 'img/default.jpg'}')">
+          <div class="card-overlay">
+            <span class="card-profession">${user.profession || 'Не указано'}</span>
+          </div>
+          <div class="card-info">
+            <p class="card-name">${user.name || user.user?.username || 'Пользователь'}, ${user.age || '-'}</p>
+            <p class="card-city">${user.location || '-'}</p>
+            <p class="card-skills">${user.skills || user.inerests || '-'}</p>
+          </div>
+        </div>
+      `;
+      cardsContainer.appendChild(card);
+    });
+  }
+
+  // ======= Инициализация =======
+  const userId = await loadCurrentUserProfile();
+  if (!userId) {
+    showAlert("Не найден ID текущего пользователя");
+    return;
+  }
+
+  loadSummary();
+  loadRecommendations(userId);
+
+  // ======= Кнопка "Показать ещё" =======
+  loadMoreBtn.addEventListener('click', () => loadUsers());
+
+  // ======= Поиск =======
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      currentSearch = searchInput.value.trim();
+      loadUsers(true);
+    }
+  });
+});
