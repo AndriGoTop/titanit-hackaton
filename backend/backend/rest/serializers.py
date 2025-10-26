@@ -4,9 +4,12 @@ from .models import User, UserProfile
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='user.email', read_only=True)
+    telegram_id = serializers.CharField(source='user.telegram_id')
+    username = serializers.CharField(source='user.username', read_only=True) 
     class Meta:
         model = UserProfile
-        fields = ['bio', 'skills', 'inerests', 'goals', 'locations', "gender", "profession","bithday"]
+        fields = ["id",'bio', "telegram_id", "email",'skills','inerests', 'goals', 'locations', "gender", "profession","bithday", "expirience", "username"]
         read_only_fields = ['user']
         extra_kwargs = {
             "bio": {"required": False},
@@ -18,8 +21,18 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "profession": {"required": False},
             "photo": {"required": False},
             "bithday": {"required": False},
+            "expirience": {"required": False},
         }
-
+    def update(self, instance, validated_data):
+        # Сначала обновим связанные поля User
+        user_data = validated_data.pop('user', {})
+        if 'telegram_id' in user_data:
+            instance.user.telegram_id = user_data['telegram_id']
+            instance.user.save()
+        
+        # Обновляем поля UserProfile
+        return super().update(instance, validated_data)
+    
 class UserSerializer(serializers.ModelSerializer):
     # profile = UserProfileSerializer(required=False)
     

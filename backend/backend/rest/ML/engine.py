@@ -1,7 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from datetime import date
-import numpy as np
 
 class CompatibilityEngine:
     def __init__(self, location_bonus=0.1, skill_bonus=0.05, gender_bonus=0.05):
@@ -93,7 +92,7 @@ class CompatibilityEngine:
                 "name": getattr(p.user, "username", ""),
                 "profession": getattr(p, "profession", ""),
                 "gender": getattr(p, "gender", ""),
-                "age": getattr(p, "age", ""),
+                "age": self.calculate_age(p.bithday) if p.bithday else None,
                 "skills": getattr(p, "skills", []),
                 "location": getattr(p, "locations", ""),
                 "score": round(float(scores[i]) * 100, 2),

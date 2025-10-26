@@ -12,7 +12,6 @@ from rest_framework_simplejwt.views import (
 )
 
 router = routers.SimpleRouter()
-router.register(r"users", UserViewSet, basename="user")
 router.register(r"profile", ProfileViewSet, basename="profile")
 
 
@@ -38,9 +37,10 @@ urlpatterns = [
     ),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path("api/", include(router.urls)),
+    # Лента рекомендация и поиск пользователей
+    path("api/users/", UserViewSet.as_view(), name="users"),
     path("api/register/", UserRegisterView.as_view(), name="register"),
-    # endpoimt для аунтификации пользователя через JWT токены
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    # endpoint для аунтификации пользователя через JWT токены
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
 
