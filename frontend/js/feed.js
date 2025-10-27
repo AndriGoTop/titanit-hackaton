@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const userStatus = document.getElementById('user-status');
 
       if (userPhoto) userPhoto.src = user.photo || 'img/profile.jpg';
-      if (userName) userName.textContent = user.fio || user.user || 'Пользователь';
+      if (userName) userName.textContent = user.fio || user.username || 'Пользователь';
       if (userProfession) userProfession.textContent = user.profession || 'Не указано';
       if (userCity) userCity.textContent = user.locations || '-';
       if (userStatus) userStatus.textContent = user.goals || 'Нет статуса';

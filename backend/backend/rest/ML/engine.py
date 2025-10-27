@@ -96,5 +96,6 @@ class CompatibilityEngine:
                 "skills": getattr(p, "skills", []),
                 "location": getattr(p, "locations", ""),
                 "score": round(float(scores[i]) * 100, 2),
+                "photo": f"http://127.0.0.1:8000{p.photo.url}" if getattr(p, "photo", None) else "/static/img/default.jpg"
             })
         return recommendations

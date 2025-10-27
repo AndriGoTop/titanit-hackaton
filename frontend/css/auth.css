@@ -31,7 +31,7 @@ body::before {
     /* Сумма высот всех 4 блоков */
     height: 2203px; /* пример */
     
-    background-image: url('img/welcome-bg.svg');
+    background-image: url('/img/welcome-bg.svg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -332,7 +332,7 @@ line-height: 142%;
 }
 
 .auth-footer-wrapper {
-  background-image: url('img/registration-bg.svg');
+  background-image: url('/img/registration-bg.svg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -340,7 +340,7 @@ line-height: 142%;
 
 .auth{
     margin-bottom: 80px;
-    height: 854px;
+    height: 454px;
 }
 .auth__container {
   display: flex;

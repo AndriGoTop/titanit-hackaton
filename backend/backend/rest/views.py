@@ -38,7 +38,6 @@ class UserViewSet(views.APIView):
             "multi_match",
             query=search_query,  # например "django python"
             fields=["skills", "inerests", "profession", "locations"],
-            fuzziness="AUTO",
             type="cross_fields",  # учитываем все поля как одно логическое поле
             operator="and"        # все слова из search_query должны присутствовать
         )

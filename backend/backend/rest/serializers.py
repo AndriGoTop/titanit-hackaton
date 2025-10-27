@@ -7,9 +7,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='user.email', read_only=True)
     telegram_id = serializers.CharField(source='user.telegram_id')
     username = serializers.CharField(source='user.username', read_only=True) 
+    photo = serializers.SerializerMethodField()
     class Meta:
         model = UserProfile
-        fields = ["id",'bio', "telegram_id", "email",'skills','inerests', 'goals', 'locations', "gender", "profession","bithday", "expirience", "username"]
+        fields = ["id",'bio', "telegram_id", "email",'skills','inerests', 'goals', 'locations', "gender", "profession","bithday", "expirience", "username", 'photo', 'photo']
         read_only_fields = ['user']
         extra_kwargs = {
             "bio": {"required": False},
@@ -32,6 +33,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
         
         # Обновляем поля UserProfile
         return super().update(instance, validated_data)
+
+    def get_photo(self, obj):
+        request = self.context.get('request')
+        if obj.photo and request:
+            return request.build_absolute_uri(obj.photo.url)
+        elif obj.photo:
+            return f"http://127.0.0.1:8000{obj.photo.url}"
+        return None
     
 class UserSerializer(serializers.ModelSerializer):
     # profile = UserProfileSerializer(required=False)
@@ -78,6 +87,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.save()
         
         if profile_data:
+            profile_data.pop('user', None)
             UserProfile.objects.create(user=user, **profile_data)
         else:
             UserProfile.objects.create(user=user)

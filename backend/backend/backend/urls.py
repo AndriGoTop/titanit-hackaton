@@ -10,6 +10,9 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 router = routers.SimpleRouter()
 router.register(r"profile", ProfileViewSet, basename="profile")
@@ -49,4 +52,4 @@ urlpatterns = [
     re_path(r"^auth/", include("djoser.urls.jwt")),
     # Рекомендательная система для определенного пользователя
     path("api/match/<int:user_id>/", MatchView.as_view(), name="match")
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
