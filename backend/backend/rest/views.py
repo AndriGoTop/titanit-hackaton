@@ -13,6 +13,8 @@ from .ML.engine import CompatibilityEngine
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.exceptions import PermissionDenied
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from rest_framework.decorators import action
 
 
 engine = CompatibilityEngine()
@@ -177,15 +179,22 @@ class UserRegisterView(views.APIView):
 class ProfileViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserProfileSerializer
+    queryset = UserProfile.objects.all()
+    lookup_field = 'id'
 
-    # Получаем только свой профиль
-    def get_queryset(self):
-        return UserProfile.objects.filter(user=self.request.user)
+    @action(detail=False, methods=['get'])
+    def me(self, request):
+        """Возвращает профиль текущего пользователя"""
+        serializer = self.get_serializer(request.user.userprofile)
+        return Response(serializer.data)
 
-    # Позволяет редактировать только свой профиль
-    def get_object(self):
-        return self.request.user.userprofile
-
+    # Редактировать можно только свой профиль
+    def update(self, request, *args, **kwargs):
+        profile = self.get_object()
+        if profile.user != request.user:
+            return Response({"error": "Редактировать можно только свой профиль"}, status=403)
+        return super().update(request, *args, **kwargs)
+    
     # Запрещает создавать пользователя
     def create(self, request, *args, **kwargs):
         return Response(
@@ -225,3 +234,20 @@ class MatchView(views.APIView):
             {"user_id": user_id, "recommendations": recommendations},
             status=status.HTTP_200_OK,
         )
+
+class LogoutView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data.get("refresh")
+
+            if not refresh_token:
+                return Response({"detail": "Refresh токен обязателен"}, status=status.HTTP_400_BAD_REQUEST)
+
+            token = RefreshToken(refresh_token)
+            token.blacklist()  # добавляем токен в черный список
+
+            return Response({"detail": "Вы успешно вышли из аккаунта"}, status=status.HTTP_205_RESET_CONTENT)
+        except TokenError:
+            return Response({"detail": "Токен недействителен или уже аннулирован"}, status=status.HTTP_400_BAD_REQUEST)

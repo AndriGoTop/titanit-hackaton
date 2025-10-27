@@ -3,7 +3,7 @@ from django.urls import path, include , re_path
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from rest.views import UserViewSet, UserRegisterView, ProfileViewSet, MatchView
+from rest.views import UserViewSet, UserRegisterView, ProfileViewSet, MatchView, LogoutView
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -51,5 +51,7 @@ urlpatterns = [
     # аккаунты пользователей
     re_path(r"^auth/", include("djoser.urls.jwt")),
     # Рекомендательная система для определенного пользователя
-    path("api/match/<int:user_id>/", MatchView.as_view(), name="match")
+    path("api/match/<int:user_id>/", MatchView.as_view(), name="match"),
+    # Выход из аккаунта
+    path('auth/jwt/logout/', LogoutView.as_view(), name='jwt_logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

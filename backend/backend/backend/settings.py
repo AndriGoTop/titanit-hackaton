@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     "elasticsearch_dsl",
     "django_elasticsearch_dsl",
     "corsheaders",
+    'rest_framework_simplejwt.token_blacklist',
+
 ]
 
 MIDDLEWARE = [

@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!access && !refresh) return null;
 
     try {
-      const testRes = await fetch('http://127.0.0.1:8000/api/profile/', {
+      const testRes = await fetch('http://127.0.0.1:8000/api/profile/me/', {
         headers: { 'Authorization': `Bearer ${access}` }
       });
 
@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ======= Получение текущего пользователя =======
   async function loadCurrentUserProfile() {
     try {
-      const data = await fetchWithToken('http://127.0.0.1:8000/api/profile/');
-      if (!data.results || data.results.length === 0) throw new Error("Профиль не найден");
+      const data = await fetchWithToken('http://127.0.0.1:8000/api/profile/me/');
+      if (!data || data.length === 0) throw new Error("Профиль не найден");
 
-      const user = data.results[0];
+      const user = data;
       currentUserId = user.id;
 
       // ======= Блок профиля =======

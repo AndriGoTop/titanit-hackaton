@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function fetchProfile(id, token) {
-        return await fetch(`http://127.0.0.1:8000/api/profile/${id}/`, {
+        return await fetch(`http://127.0.0.1:8000/api/profile/${userId}/`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         let response = await fetchProfile(userId, accessToken);
         console.log(response);
-        // Если access устарел, обновляем через refresh
+
+        // Если access устарел — обновляем через refresh
         if (response.status === 401 && refreshToken) {
             const refreshRes = await fetch('http://127.0.0.1:8000/auth/jwt/refresh/', {
                 method: 'POST',
@@ -62,13 +63,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('sex').textContent = data.gender || 'Не указан';
         document.getElementById('age').textContent = data.bithday ? getAge(data.bithday) : '—';
 
-        // Дополнительная информация
-        document.getElementById('user-experience').textContent = data.expirience || 0;
+        // === Опыт работы ===
+        const exp = parseInt(data.expirience) || 0;
+        const experienceElem = document.getElementById('user-experience');
+        const expTxtElem = document.querySelector('.user-experience__txt');
+
+        if (experienceElem && expTxtElem) {
+            experienceElem.textContent = exp;
+            expTxtElem.textContent = getYearsWord(exp);
+        }
+
+        // === Остальные поля ===
         document.getElementById('user-about').textContent = data.bio || 'Описание отсутствует';
         document.getElementById('user-email').textContent = data.email || '—';
         document.getElementById('user-telegram').textContent = data.telegram_id || '—';
 
-        // Интересы
+        // === Интересы ===
         const interestsContainer = document.getElementById('user-interests');
         interestsContainer.innerHTML = '';
         if (data.inerests) {
@@ -97,4 +107,15 @@ function getAge(birthDate) {
     const diff = Date.now() - birth.getTime();
     const age = new Date(diff);
     return Math.abs(age.getUTCFullYear() - 1970);
+}
+
+// === Функция выбора слова "год" / "года" / "лет" ===
+function getYearsWord(number) {
+    const lastDigit = number % 10;
+    const lastTwo = number % 100;
+
+    if (lastTwo >= 11 && lastTwo <= 19) return 'лет';
+    if (lastDigit === 1) return 'год';
+    if (lastDigit >= 2 && lastDigit <= 4) return 'года';
+    return 'лет';
 }

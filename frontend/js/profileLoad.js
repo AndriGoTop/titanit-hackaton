@@ -19,7 +19,7 @@ async function getValidAccessToken() {
 
   try {
     // Проверяем доступность текущего токена
-    const testRes = await fetch('http://127.0.0.1:8000/api/profile/', {
+    const testRes = await fetch('http://127.0.0.1:8000/api/profile/me/', {
       headers: { 'Authorization': `Bearer ${access}` }
     });
 
@@ -56,7 +56,7 @@ async function loadUserProfile() {
   }
 
 try {
-  const response = await fetch('http://127.0.0.1:8000/api/profile/', {
+  const response = await fetch('http://127.0.0.1:8000/api/profile/me/', {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${token}`
@@ -65,8 +65,9 @@ try {
 
   const data = await response.json();
 
-  if (response.ok && data.results && data.results.length > 0) {
-    const user = data.results[0];
+  if (response.ok && data) {
+
+    const user = data;
 
     // ======= Заполняем форму =======
     document.querySelector('input[name="city"]').value = user.locations || '';
