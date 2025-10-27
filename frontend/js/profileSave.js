@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
       inerests: form.interests.value.trim() || null,
       bio: form.about.value.trim() || null,
       bithday: form.birthdate.value || null,
+      gender: form.gender.value || null,
     };
 
     try {
@@ -108,7 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
 
       if (response.ok) {
-        showAlert('Изменения сохранены успешно!');
+        window.location.href = window.location.href;
+
       } else {
         showAlert('Ошибка сохранения: ' + JSON.stringify(data));
       }

@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         alert("Регистрация успешна! JWT сохранён.");
         // Перенаправление на страницу после регистрации
-        window.location.href = '/';
+        window.location.href = '/auth.html';
       } else {
         alert("Ошибка регистрации: " + JSON.stringify(data));
       }

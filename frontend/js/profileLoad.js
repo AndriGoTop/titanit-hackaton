@@ -64,7 +64,6 @@ try {
   });
 
   const data = await response.json();
-  console.log(data);
 
   if (response.ok && data.results && data.results.length > 0) {
     const user = data.results[0];
@@ -77,6 +76,7 @@ try {
     document.querySelector('input[name="experience"]').value = user.expirience || '';
     document.querySelector('input[name="interests"]').value = user.inerests || '';
     document.querySelector('textarea[name="about"]').value = user.bio || '';
+    document.querySelector('select[name="sex"]').value = user.gender || '';
 
     // ======= Заполняем блок профиля =======
     document.querySelector('.profile-name').textContent = user.username || 'Имя пользователя';
