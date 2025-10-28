@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ======== Загрузка профиля ========
   async function loadProfile() {
     try {
-      const response = await fetchWithToken('http://127.0.0.1:8000/api/profile/');
+      const response = await fetchWithToken('http://127.0.0.1:8000/api/profile/me/');
       const data = await response.json();
 
-      if (response.ok && data.results && data.results.length > 0) {
-        const user = data.results[0];
+      if (response.ok && data) {
+        const user = data;
 
         // Заполнение формы
         form.city.value = user.locations || '';
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.interests.value = user.inerests || '';
         form.about.value = user.bio || '';
         form.birthdate.value = user.bithday || '';
-
+        form.skills.value = Array.isArray(user.skills) ? user.skills.join(', ') : (user.skills || '');
         // Сохраняем id профиля
         form.dataset.profileId = user.id;
       } else {
@@ -97,11 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
       inerests: form.interests.value.trim() || null,
       bio: form.about.value.trim() || null,
       bithday: form.birthdate.value || null,
-      gender: form.gender.value || null,
+      gender: form.sex.value || null,
+      skills: form.skills.value.trim() || null,
     };
 
     try {
-      const response = await fetchWithToken(`http://127.0.0.1:8000/api/profile/${profileId}/`, {
+      const response = await fetchWithToken(`http://127.0.0.1:8000/api/profile/me/`, {
         method: 'PATCH',
         body: JSON.stringify(profileData)
       });

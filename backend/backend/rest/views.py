@@ -182,11 +182,24 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     lookup_field = 'id'
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=['get', 'patch'])
     def me(self, request):
-        """Возвращает профиль текущего пользователя"""
-        serializer = self.get_serializer(request.user.userprofile)
-        return Response(serializer.data)
+        """
+        GET — возвращает профиль текущего пользователя
+        PATCH — обновляет профиль текущего пользователя
+        """
+        profile = request.user.userprofile
+
+        if request.method == 'GET':
+            serializer = self.get_serializer(profile)
+            return Response(serializer.data)
+
+        elif request.method == 'PATCH':
+            serializer = self.get_serializer(profile, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # Редактировать можно только свой профиль
     def update(self, request, *args, **kwargs):

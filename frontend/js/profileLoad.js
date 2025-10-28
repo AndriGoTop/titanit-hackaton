@@ -1,4 +1,4 @@
-// ======= Функции утилиты =======
+// ======= ФУНКЦИИ УТИЛИТЫ =======
 function showAlert(message) {
   alert(message);
 }
@@ -8,7 +8,7 @@ function handleError(err) {
   showAlert("Ошибка сети или сервера");
 }
 
-// Получаем валидный access token, обновляем если нужно
+// ======= ПРОВЕРКА И ОБНОВЛЕНИЕ JWT ТОКЕНОВ =======
 async function getValidAccessToken() {
   let access = localStorage.getItem('access_token');
   const refresh = localStorage.getItem('refresh_token');
@@ -18,13 +18,13 @@ async function getValidAccessToken() {
   }
 
   try {
-    // Проверяем доступность текущего токена
+    // Проверяем доступность текущего access токена
     const testRes = await fetch('http://127.0.0.1:8000/api/profile/me/', {
       headers: { 'Authorization': `Bearer ${access}` }
     });
 
     if (testRes.status === 401 && refresh) {
-      // Токен недействителен — обновляем через refresh
+      // access недействителен — обновляем через refresh
       const refreshRes = await fetch('http://127.0.0.1:8000/auth/jwt/refresh/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,7 +32,7 @@ async function getValidAccessToken() {
       });
 
       if (!refreshRes.ok) {
-        return null; // не удалось обновить
+        return null;
       }
 
       const refreshData = await refreshRes.json();
@@ -47,7 +47,7 @@ async function getValidAccessToken() {
   }
 }
 
-// ======= Загрузка профиля =======
+// ======= ЗАГРУЗКА ПРОФИЛЯ ПОЛЬЗОВАТЕЛЯ =======
 async function loadUserProfile() {
   const token = await getValidAccessToken();
   if (!token) {
@@ -55,57 +55,88 @@ async function loadUserProfile() {
     return;
   }
 
-try {
-  const response = await fetch('http://127.0.0.1:8000/api/profile/me/', {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  });
-
-  const data = await response.json();
-
-  if (response.ok && data) {
-
-    const user = data;
-
-    // ======= Заполняем форму =======
-    document.querySelector('input[name="city"]').value = user.locations || '';
-    document.querySelector('input[name="email"]').value = user.email || '';
-    document.querySelector('input[name="telegram"]').value = user.telegram_id || '';
-    document.querySelector('input[name="profession"]').value = user.profession || '';
-    document.querySelector('input[name="experience"]').value = user.expirience || '';
-    document.querySelector('input[name="interests"]').value = user.inerests || '';
-    document.querySelector('textarea[name="about"]').value = user.bio || '';
-    document.querySelector('select[name="sex"]').value = user.gender || '';
-
-    // ======= Заполняем блок профиля =======
-    document.querySelector('.profile-name').textContent = user.username || 'Имя пользователя';
-    document.querySelector('.profile-status').textContent = user.goals || 'Нет статуса';
-
-    // ======= Отображаем фото пользователя =======
-    const photoElement = document.querySelector('.profile-photo');
-    if (photoElement) {
-      if (user.photo) {
-        // Если API возвращает относительный путь — добавляем домен
-        const isFullUrl = user.photo.startsWith('http');
-        photoElement.src = isFullUrl ? user.photo : `http://127.0.0.1:8000${user.photo}`;
-      } else {
-        // Если фото нет — подставляем стандартное изображение
-        photoElement.src = 'img/profile.jpg';
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/profile/me/', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data) {
+      const user = data;
+
+      // ======= ЗАПОЛНЯЕМ ФОРМУ =======
+      document.querySelector('input[name="city"]').value = user.locations || '';
+      document.querySelector('input[name="email"]').value = user.email || '';
+      document.querySelector('input[name="telegram"]').value = user.telegram_id || '';
+      document.querySelector('input[name="profession"]').value = user.profession || '';
+      document.querySelector('input[name="experience"]').value = user.expirience || '';
+      document.querySelector('input[name="interests"]').value = user.inerests || '';
+      document.querySelector('textarea[name="about"]').value = user.bio || '';
+      document.querySelector('select[name="sex"]').value = user.gender || '';
+
+      // ======= НАВЫКИ =======
+      const skillsInput = document.querySelector('input[name="skills"]');
+      const skillsContainer = document.getElementById('profile-skills');
+
+      // Обработка разных форматов (список или строка)
+      let skills = [];
+      if (Array.isArray(user.skills)) {
+        skills = user.skills;
+      } else if (typeof user.skills === 'string') {
+        skills = user.skills.split(',').map(s => s.trim());
+      }
+
+      // Поле ввода (редактирование)
+      if (skillsInput) {
+        skillsInput.value = skills.join(', ');
+      }
+
+      // Визуальное отображение навыков в блоке профиля
+      if (skillsContainer) {
+        skillsContainer.innerHTML = ''; // очищаем старые элементы
+        if (skills.length > 0) {
+          skills.forEach(skill => {
+            const span = document.createElement('span');
+            span.textContent = skill;
+            skillsContainer.appendChild(span);
+          });
+        } else {
+          const empty = document.createElement('span');
+          empty.textContent = 'Навыки не указаны';
+          empty.style.opacity = '0.7';
+          skillsContainer.appendChild(empty);
+        }
+      }
+
+      // ======= ОСНОВНАЯ ИНФОРМАЦИЯ =======
+      document.querySelector('.profile-name').textContent = user.username || 'Имя пользователя';
+      document.querySelector('.profile-status').textContent = user.goals || 'Нет статуса';
+
+      // ======= ФОТО ПОЛЬЗОВАТЕЛЯ =======
+      const photoElement = document.querySelector('.profile-photo');
+      if (photoElement) {
+        if (user.photo) {
+          const isFullUrl = user.photo.startsWith('http');
+          photoElement.src = isFullUrl ? user.photo : `http://127.0.0.1:8000${user.photo}`;
+        } else {
+          photoElement.src = 'img/profile.jpg';
+        }
+      }
+
+    } else {
+      console.error("Профиль не найден или пуст:", data);
+      showAlert("Не удалось загрузить профиль пользователя");
     }
-
-  } else {
-    console.error("Профиль не найден или пуст:", data);
+  } catch (err) {
+    handleError(err);
   }
-} catch (err) {
-  handleError(err);
-}
 }
 
-
-// ======= Инициализация =======
+// ======= ИНИЦИАЛИЗАЦИЯ =======
 document.addEventListener('DOMContentLoaded', () => {
   loadUserProfile();
 });
