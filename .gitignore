@@ -3,7 +3,8 @@ venv/
 .venv/
 *.venv
 .venv
-
+.env
+/.env
 # Файлы Python
 __pycache__/
 *.py[cod]
