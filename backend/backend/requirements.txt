@@ -8,7 +8,7 @@ cryptography==46.0.3
 defusedxml==0.7.1
 Django==5.2.7
 django-cors-headers==4.9.0
-django-elasticsearch-dsl==9.0
+django-elasticsearch-dsl==8.0.0
 django-filter==25.2
 djangorestframework==3.16.1
 djangorestframework_simplejwt==5.5.1
@@ -17,7 +17,7 @@ dotenv==0.9.9
 drf-spectacular==0.28.0
 drf-yasg==1.21.11
 elastic-transport==8.17.1
-elasticsearch==8.19.1
+elasticsearch==8.13.0
 elasticsearch-dsl==8.18.0
 filelock==3.20.0
 fsspec==2025.9.0
