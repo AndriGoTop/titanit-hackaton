@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Виртуальное окружение
 venv/
 .venv/
@@ -22,9 +21,6 @@ test_elastic_search.py
 .idea/
 
 # Логи и отладочные файлы
-=======
-# Django #
->>>>>>> beda6436f68e6e874b6e70e7c42f65c2aef33cb5
 *.log
 *.pot
 *.pyc
