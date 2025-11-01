@@ -1,4 +1,16 @@
 services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5444:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
   elasticsearch:
     image: elasticsearch:8.13.0
     container_name: elasticsearch
@@ -10,6 +22,32 @@ services:
       - esdata:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
-
+  django-web:
+    build: backend/backend/
+    container_name: django-docker
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - elasticsearch
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      ELASTICSEARCH_DSL: ${ELASTICSEARCH_DSL}
+    env_file:
+      - .env
+  frontend:
+    build: frontend/
+    container_name: frontend-docker
+    ports:
+      - "5555:5555"
+    depends_on:
+      - django-web
 volumes:
   esdata:
+  postgres_data:
