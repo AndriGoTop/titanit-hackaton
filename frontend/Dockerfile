@@ -1,4 +1,8 @@
-FROM ubuntu:latest
-LABEL authors="andrigo"
+FROM python:3.12-slim
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /frontend
+COPY . .
+
+EXPOSE 5555
+
+ENTRYPOINT ["python", "-m", "http.server", "5555"]
