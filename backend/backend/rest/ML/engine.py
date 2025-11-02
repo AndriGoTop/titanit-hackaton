@@ -58,7 +58,7 @@ class CompatibilityEngine:
         # Дополнительные бонусы
         for i, p in enumerate(self.user_profiles):
             # Локация
-            if getattr(base_profile, "locations", "").strip().lower() == getattr(p, "locations", "").strip().lower():
+            if (getattr(base_profile, "locations", "") or "").strip().lower() == (getattr(p, "locations", "") or "").strip().lower():
                 scores[i] += self.location_bonus
 
             # Skills
