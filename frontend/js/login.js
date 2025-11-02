@@ -1,3 +1,4 @@
+import { checkAuth } from './check.js';
 // Сохраняем токены
 function saveTokens(access, refresh) {
   localStorage.setItem('access_token', access);
@@ -15,10 +16,14 @@ function handleError(err) {
   showAlert("Ошибка сети или сервера");
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const loginForm = document.getElementById('loginForm');
-  if (!loginForm) return;
-
+  
+  const user = await checkAuth(); 
+  if (user){
+    window.location.href = "profile.html";
+    return;
+  }
   loginForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 

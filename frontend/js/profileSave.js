@@ -1,7 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { requireAuth } from './guard.js';
+document.addEventListener('DOMContentLoaded', async () => {
   const form = document.querySelector('.profile-form');
   if (!form) return;
-
+  await requireAuth();
   // ======== Вспомогательные функции ========
   function saveTokens(access, refresh) {
     localStorage.setItem('access_token', access);

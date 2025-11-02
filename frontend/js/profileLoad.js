@@ -1,3 +1,4 @@
+import { requireAuth } from './guard.js';
 // ======= ФУНКЦИИ УТИЛИТЫ =======
 function showAlert(message) {
   alert(message);
@@ -51,7 +52,7 @@ async function getValidAccessToken() {
 async function loadUserProfile() {
   const token = await getValidAccessToken();
   if (!token) {
-    window.location.href = '/login.html';
+    window.location.href = '/index.html';
     return;
   }
 
@@ -137,7 +138,8 @@ async function loadUserProfile() {
 }
 
 // ======= ИНИЦИАЛИЗАЦИЯ =======
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded',async () => {
+  await requireAuth();
   loadUserProfile();
 });
 
