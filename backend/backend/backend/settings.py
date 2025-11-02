@@ -9,7 +9,7 @@ load_dotenv()
 
 SECRET_KEY = "django-insecure-t@*xprcx3nyd5medw0*hoevo&g(zw_0s5r0_p$@o&$n4yj@mgn"
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG", True)
 
 ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "localhost"]
 CORS_ALLOW_ALL_ORIGINS = True
@@ -67,7 +67,11 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 ELASTICSEARCH_DSL = {
     'default': {
+<<<<<<< HEAD
         'hosts': 'http://elasticsearch:9200',
+=======
+        'hosts': os.getenv("ELASTICSEARCH_DSL", 'http://localhost:9200'),
+>>>>>>> b937d4bd878d2b1a08dc2d367fa762944aba917b
     },
 }
 ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = 'django_elasticsearch_dsl.signals.RealTimeSignalProcessor'
