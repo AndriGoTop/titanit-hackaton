@@ -63,7 +63,6 @@ sympy==1.14.0
 threadpoolctl==3.6.0
 timedelta==2020.12.3
 tokenizers==0.22.1
-torch==2.9.0
 tqdm==4.67.1
 transformers==4.57.1
 typing_extensions==4.15.0
