@@ -22,8 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let token = localStorage.getItem('access_token');
     if (!options.headers) options.headers = {};
     options.headers['Authorization'] = `Bearer ${token}`;
-    options.headers['Content-Type'] = 'application/json';
 
+    if (!(options.body instanceof FormData)) {
+      options.headers['Content-Type'] = 'application/json';
+    }
     let response = await fetch(url, options);
 
     if (response.status === 401) { // токен недействителен
@@ -89,29 +91,37 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const profileData = {
-      locations: form.city.value.trim() || null,
-      telegram_id: form.telegram.value.trim() || null,
-      profession: form.profession.value.trim() || null,
-      expirience: form.experience.value ? parseInt(form.experience.value) : null,
-      inerests: form.interests.value.trim() || null,
-      bio: form.about.value.trim() || null,
-      bithday: form.birthdate.value || null,
-      gender: form.sex.value || null,
-      skills: form.skills.value.trim() || null,
-    };
+    const formData = new FormData();
+    formData.append('locations', form.city.value.trim() || '');
+    formData.append('telegram_id', form.telegram.value.trim() || '');
+    formData.append('profession', form.profession.value.trim() || '');
+    formData.append('expirience', form.experience.value ? parseInt(form.experience.value) : '');
+    formData.append('inerests', form.interests.value.trim() || '');
+    formData.append('bio', form.about.value.trim() || '');
+    formData.append('bithday', form.birthdate.value || '');
+    formData.append('gender', form.sex.value || '');
+    formData.append('skills', form.skills.value.trim() || '');
+
+    const photoInput = document.getElementById('photoInput');
+    const profilePhoto = document.getElementById('profilePhoto');
+    // ======== Добавляем фото, если выбран ========
+    if (photoInput.files[0]) {
+      formData.append('photo', photoInput.files[0]);
+    }
 
     try {
       const response = await fetchWithToken(`http://127.0.0.1:8000/api/profile/me/`, {
         method: 'PATCH',
-        body: JSON.stringify(profileData)
+        body: formData
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        window.location.href = window.location.href;
-
+          showAlert('Профиль обновлён');
+          if (data.photo) {
+            profilePhoto.src = (data.photo.startsWith('http') ? data.photo : `http://127.0.0.1:8000${data.photo}`) + '?t=' + new Date().getTime();
+          }
       } else {
         showAlert('Ошибка сохранения: ' + JSON.stringify(data));
       }

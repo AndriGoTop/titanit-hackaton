@@ -9,12 +9,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         source="user.telegram_id", required=False, allow_blank=True, allow_null=True
     )
     username = serializers.CharField(source="user.username", read_only=True)
-    photo = serializers.SerializerMethodField()
+    photo = serializers.ImageField(required=False, allow_null=True)
 
     class Meta:
         model = UserProfile
         fields = [
             "id",
+            "photo",
             "bio",
             "telegram_id",
             "email",
@@ -27,8 +28,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "bithday",
             "expirience",
             "username",
-            "photo",
-            "photo",
+
         ]
         read_only_fields = ["user"]
         extra_kwargs = {

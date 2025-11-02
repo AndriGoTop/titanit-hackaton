@@ -140,3 +140,20 @@ async function loadUserProfile() {
 document.addEventListener('DOMContentLoaded', () => {
   loadUserProfile();
 });
+
+// ======= ПРОСМОТР ВЫБРАННОГО ФОТО =======
+const photoInput = document.getElementById('photoInput');
+const profilePhoto = document.getElementById('profilePhoto');
+
+if (photoInput && profilePhoto) {
+  photoInput.addEventListener('change', () => {
+    const file = photoInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        profilePhoto.src = e.target.result; // превью выбранного файла
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+}

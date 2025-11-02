@@ -42,8 +42,16 @@
             </button>
 
             <div class="profile__main">
-            <img src="img/profile.jpg" alt="Фото пользователя" class="profile-photo">
+            <div class="profile-photo-container">
+                <img src="img/profile.jpg" alt="Фото пользователя" class="profile-photo" id="profilePhoto">
+                  <!-- Скрытый input -->
+                <input type="file" id="photoInput" name="photo" style="display: none;">
 
+                <!-- Кастомная кнопка -->
+                <label for="photoInput" class="custom-file-btn">
+                    Выбрать фото
+                </label>
+            </div>
             <div class="profile-info">
                 <h2 id="profile-name" class="profile-name">Голубенко Андрей Алексеевич</h2>
 
