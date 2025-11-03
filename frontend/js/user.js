@@ -1,4 +1,6 @@
+import { requireAuth } from './guard.js';
 document.addEventListener('DOMContentLoaded', async () => {
+    await requireAuth();
     const params = new URLSearchParams(window.location.search);
     const userId = params.get('id');
 
@@ -63,6 +65,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('sex').textContent = data.gender || 'Не указан';
         document.getElementById('age').textContent = data.bithday ? getAge(data.bithday) : '—';
 
+        const skillsInput = document.querySelector('input[name="skills"]');
+        const skillsContainer = document.getElementById('profile-skills');
+        // Обработка разных форматов (список или строка)
+        let skills = [];
+        if (Array.isArray(data.skills)) {
+            skills = data.skills;
+        } else if (typeof data.skills === 'string') {
+            skills = data.skills.split(',').map(s => s.trim());
+        }
+        // Визуальное отображение навыков в блоке профиля
+        if (skillsContainer) {
+            skillsContainer.innerHTML = ''; // очищаем старые элементы
+            if (skills.length > 0) {
+            skills.forEach(skill => {
+                const span = document.createElement('span');
+                span.textContent = skill;
+                skillsContainer.appendChild(span);
+            });
+            } else {
+            const empty = document.createElement('span');
+            empty.textContent = 'Навыки не указаны';
+            empty.style.opacity = '0.7';
+            skillsContainer.appendChild(empty);
+            }
+        }
         // === Опыт работы ===
         const exp = parseInt(data.expirience) || 0;
         const experienceElem = document.getElementById('user-experience');
